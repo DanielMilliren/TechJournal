@@ -1,0 +1,19 @@
+set interfaces ethernet eth0 address '172.16.150.3/24'
+set interfaces ethernet eth0 description 'LAN'
+set interfaces ethernet eth0 offload gro
+set interfaces ethernet eth0 offload gso
+set interfaces ethernet eth0 offload sg
+set interfaces ethernet eth0 offload tso
+set interfaces ethernet eth1 address '172.16.200.2/28'
+set interfaces ethernet eth1 description 'MGMT'
+set protocols rip interface eth0
+set protocols rip network '172.16.200.0/28'
+set protocols static route 0.0.0.0/0 next-hop 172.16.150.2
+set service dns forwarding allow-from '172.16.200.0/28'
+set service dns forwarding listen-address '172.16.200.2'
+set service dns forwarding system
+set system host-name 'fw-mgmt-daniel'
+set system name-server '172.16.150.2'
+set system option reboot-on-upgrade-failure '5'
+set system syslog local facility all level 'info'
+set system syslog local facility local7 level 'debug'
